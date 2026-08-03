@@ -612,7 +612,17 @@
     <div class="section-label">Get in Touch</div>
     <h2 class="section-title">Reach the Campaign</h2>
     <div class="contact-grid">
-      <form class="contact-form" action="#" method="post">
+      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="post">
+
+        <!-- REPLACE with your key from web3forms.com -->
+        <input type="hidden" name="access_key" value="8d11e53d-3b51-40cb-a464-a7e54395e6c1">
+
+        <!-- Sender label on the emails you receive -->
+        <input type="hidden" name="from_name" value="donlippertnd.com Contact Form">
+
+        <!-- Spam honeypot: hidden from humans, bots fill it and get rejected -->
+        <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+
         <div class="form-group">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" placeholder="Jane Smith" required>
@@ -623,14 +633,18 @@
         </div>
         <div class="form-group">
           <label for="subject">Subject</label>
-          <input type="text" id="subject" name="subject" placeholder="Question, volunteer inquiry, etc.">
+          <input type="text" id="subject" name="subject" placeholder="Question, volunteer inquiry, etc." required>
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="What's on your mind?"></textarea>
+          <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
         </div>
-        <button type="submit" class="contact-btn">Send Message</button>
+        <button type="submit" class="contact-btn" id="contactBtn">Send Message</button>
+
+        <!-- Inline status message -->
+        <div id="formStatus" style="margin-top:1rem; font-weight:600; display:none;"></div>
       </form>
+
       <div class="contact-info">
         <div class="contact-info-block">
           <div class="contact-info-label">Campaign Email</div>
@@ -652,6 +666,48 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var form   = document.getElementById('contactForm');
+    var btn    = document.getElementById('contactBtn');
+    var status = document.getElementById('formStatus');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      status.style.display = 'none';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form)
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        status.style.display = 'block';
+        if (data.success) {
+          status.style.color = '#2a4e81';
+          status.textContent = 'Thank you — your message has been sent. We\'ll be in touch.';
+          form.reset();
+        } else {
+          status.style.color = '#b00020';
+          status.textContent = 'Something went wrong. Please email don@donlippertnd.com directly.';
+        }
+      })
+      .catch(function () {
+        status.style.display = 'block';
+        status.style.color = '#b00020';
+        status.textContent = 'Something went wrong. Please email don@donlippertnd.com directly.';
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      });
+    });
+  })();
+</script>
 
 <!-- FOOTER -->
 <footer>
