@@ -458,9 +458,8 @@
 <div id="countdown">
   <div class="countdown-inner">
     <div>
-      <div class="countdown-label" id="cd-label">Days until the primary election</div>
-      <div class="countdown-event" id="cd-event">June 9, 2026 — Primary Election</div>
-      <span class="countdown-switch" id="cd-switch" onclick="switchTarget()">Switch to General Election (Nov 3)</span>
+      <div class="countdown-label" id="cd-label">Days until the general election</div>
+      <div class="countdown-event" id="cd-event">November 3, 2026 — General Election</div>
     </div>
     <div class="countdown-tiles">
       <div class="countdown-tile">
@@ -722,17 +721,13 @@
 
 <script>
   // ── COUNTDOWN ──
-  var targets = [
-    { label: 'Days until the primary election', event: 'June 9, 2026 — Primary Election', switchText: 'Switch to General Election (Nov 3)', date: new Date('2026-06-09T00:00:00') },
-    { label: 'Days until the general election', event: 'November 3, 2026 — General Election', switchText: 'Switch to Primary Election (June 9)', date: new Date('2026-11-03T00:00:00') }
-  ];
-  var current = 0;
+  var electionDate = new Date('2026-11-03T00:00:00');
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
   function updateCountdown() {
     var now = new Date();
-    var diff = targets[current].date - now;
+    var diff = electionDate - now;
     if (diff <= 0) { diff = 0; }
     var days  = Math.floor(diff / 86400000);
     var hours = Math.floor((diff % 86400000) / 3600000);
@@ -742,14 +737,6 @@
     document.getElementById('cd-hours').textContent = pad(hours);
     document.getElementById('cd-mins').textContent  = pad(mins);
     document.getElementById('cd-secs').textContent  = pad(secs);
-  }
-
-  function switchTarget() {
-    current = current === 0 ? 1 : 0;
-    document.getElementById('cd-label').textContent     = targets[current].label;
-    document.getElementById('cd-event').textContent     = targets[current].event;
-    document.getElementById('cd-switch').textContent    = targets[current].switchText;
-    updateCountdown();
   }
 
   updateCountdown();
