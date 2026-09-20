@@ -409,6 +409,69 @@
     padding: 1.5rem 2rem; gap: 1.5rem;
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
+
+  /* ===== VIDEO ===== */
+  #video-section { background: var(--blue-dark); padding: 3.5rem 0 4rem; }
+  .video-wrap { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+  .video-label { text-align:center; font-size:0.78rem; font-weight:700; letter-spacing:0.18em;
+    text-transform:uppercase; color: var(--yellow); margin-bottom:0.9rem; }
+  .video-frame { position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
+    border-radius:3px; border:3px solid var(--yellow); box-shadow:0 12px 44px rgba(0,0,0,0.38); }
+  .video-frame iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+  .video-caption { text-align:center; color:rgba(255,255,255,0.72);
+    font-family:'Source Serif 4',serif; font-size:0.95rem; margin-top:1.1rem; }
+
+  /* ===== POLICY ACCORDION ===== */
+  .policy-intro { max-width:720px; margin:0 auto; text-align:center; }
+  .policy-accordion { max-width:820px; margin:2.75rem auto 0; }
+  .policy-item { border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05);
+    border-radius:3px; margin-bottom:0.75rem; transition:border-color .2s, background .2s; }
+  .policy-item[open] { border-color:rgba(247,217,22,0.45); background:rgba(255,255,255,0.08); }
+  .policy-item summary { cursor:pointer; list-style:none; padding:1.15rem 1.4rem;
+    font-family:'Barlow',sans-serif; font-weight:700; font-size:1.05rem; color:var(--white);
+    display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+  .policy-item summary::-webkit-details-marker { display:none; }
+  .policy-item summary::marker { content:''; }
+  .policy-item summary:hover { color:var(--yellow); }
+  .policy-item summary:focus-visible { outline:2px solid var(--yellow); outline-offset:-2px; }
+  .policy-chev { flex-shrink:0; width:10px; height:10px; margin-right:5px;
+    border-right:2.5px solid var(--yellow); border-bottom:2.5px solid var(--yellow);
+    transform:rotate(45deg); transition:transform .25s ease; }
+  .policy-item[open] .policy-chev { transform:rotate(-135deg); }
+  .policy-content { padding:0 1.4rem 1.45rem; }
+  .policy-content p { font-family:'Source Serif 4',serif; font-size:1rem; line-height:1.8;
+    color:rgba(255,255,255,0.80); margin:0 0 1rem; }
+  .policy-content p:last-child { margin-bottom:0; }
+  .policy-content ul { margin:0 0 1rem 1.15rem; padding:0; }
+  .policy-content li { font-family:'Source Serif 4',serif; font-size:1rem; line-height:1.7;
+    color:rgba(255,255,255,0.80); margin-bottom:0.45rem; }
+  .pillar-link { display:inline-block; margin-top:1.1rem; font-family:'Barlow',sans-serif;
+    font-weight:700; font-size:0.82rem; letter-spacing:0.07em; text-transform:uppercase;
+    color:var(--blue); text-decoration:none; border-bottom:2px solid var(--yellow); padding-bottom:2px; }
+  .pillar-link:hover { color:var(--blue-light); }
+  @media (max-width: 720px) {
+    .policy-item summary { font-size:0.97rem; padding:1rem 1.1rem; }
+    .policy-content { padding:0 1.1rem 1.2rem; }
+    #video-section { padding:2.5rem 0 3rem; }
+  }
+
+  /* ===== COUNTDOWN OVERFLOW FIX (narrow screens) ===== */
+  .countdown-tiles { flex-wrap: wrap; row-gap: 0.75rem; }
+  @media (max-width: 620px) {
+    #countdown { padding: 2rem 1.25rem; }
+    .countdown-inner { gap: 1.25rem; }
+    .countdown-event { font-size: 1.35rem; }
+    .countdown-tiles { gap: 0.4rem; width: 100%; justify-content: space-between; }
+    .countdown-tile { min-width: 0; flex: 1 1 0; padding: 0.6rem 0.35rem; }
+    .countdown-num { font-size: 1.75rem; }
+    .countdown-unit { font-size: 0.58rem; letter-spacing: 0.08em; }
+    .countdown-sep { font-size: 1.1rem; margin: 0; align-self: center; }
+  }
+  @media (max-width: 380px) {
+    #countdown { padding: 1.75rem 0.9rem; }
+    .countdown-num { font-size: 1.5rem; }
+    .countdown-sep { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -485,6 +548,21 @@
   </div>
 </div>
 
+<!-- VIDEO -->
+<section id="video-section">
+  <div class="video-wrap">
+    <div class="video-label">Meet Don</div>
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/qtk3i1jpDSQ?rel=0&amp;modestbranding=1"
+              title="Don Lippert for ND House District 45 &mdash; 30 Second Ad"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              loading="lazy" allowfullscreen></iframe>
+    </div>
+    <p class="video-caption">Thirty seconds on why Don is running for North Dakota House District 45.</p>
+  </div>
+</section>
+
 <!-- ABOUT -->
 <section id="about">
   <div class="section-inner">
@@ -539,23 +617,26 @@
         <div class="pillar-icon a">💰</div>
         <div class="pillar-title">Economic Affordability</div>
         <p class="pillar-body">
-          Fighting rising costs of housing, healthcare, and childcare for North Dakota families. Don believes economic security shouldn't depend on your zip code. He'll advocate for policy that makes life in North Dakota more affordable for the working and middle class.
+          Housing priced for a first-time buyer, child care families can actually find, and health care you can get to without a two-hour drive. Economic security shouldn't depend on your zip code.
         </p>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon b">🎓</div>
         <div class="pillar-title">Workforce &amp; Education Investment</div>
         <p class="pillar-body">
-          Expanding career training pathways, apprenticeship programs, and vocational training pipelines that connect North Dakota students directly to high-demand careers — including innovative ideas to bridge the urban-rural divide.
+          Career and technical training that reaches small districts, paired with paid apprenticeships at real employers — so a student finishes with a credential in hand instead of a loan.
         </p>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon c">⚙️</div>
         <div class="pillar-title">Labor Policy &amp; Worker Investment</div>
         <p class="pillar-body">
-          Championing policies that treat workers as the backbone of North Dakota's economy. Don will advocate for fair wages, safe working conditions, and meaningful investment in the people who keep our communities and industries running.
+          Workplaces that send people home in one piece, and big decisions — from data centers to property taxes — made with the people who live here in the room.
         </p>
       </div>
+    </div>
+    <div style="text-align:center; margin-top:2.25rem;">
+      <a href="#policy" class="pillar-link">See the policy detail</a>
     </div>
   </div>
 </section>
@@ -563,16 +644,89 @@
 <!-- POLICY IDEAS -->
 <section id="policy">
   <div class="section-inner">
-    <div style="max-width: 780px; margin: 0 auto;">
+    <div class="policy-intro">
       <div class="section-label" style="text-align: center;">Looking Ahead</div>
       <h2 class="section-title" style="text-align: center;">Policy Ideas</h2>
       <div style="width: 48px; height: 4px; background: var(--yellow); margin: 0 auto 2rem;"></div>
       <p class="ndtep-body">
-        While Don has some policy projects he would like to tackle based on his life experiences, this area of the website will become populated over the course of the campaign with ideas based on the conversations he will be having with all of the people of District 45 he is planning on meeting over the course of the campaign.
+        These are the problems people across District 45 keep raising at the door, and what I intend to do about them in Bismarck. Select any one to read more.
       </p>
       <p class="ndtep-body" style="margin-bottom: 0; font-size: 1.15rem; color: var(--white);">
         Because this campaign is about fulfilling the needs and aspirations of <strong style="color: var(--yellow);">ALL</strong> North Dakotans &mdash; not just a select few.
       </p>
+    </div>
+    <div class="policy-accordion">
+      <details class="policy-item">
+        <summary><span>Data Centers and Who Pays for the Power</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>There's a data center going up at Harwood, in our district. More are being talked about across Cass County. I'm not against them. I'm against giving away the terms.</p>
+          <p>Right now the Public Service Commission can site a wind farm or a battery facility, but it has no authority over a data center — no matter how much power it draws. The Harwood project is built to pull as much as 280 megawatts at peak. That is a decision with consequences for every household on the system, and no one at the state level is required to weigh in on it.</p>
+          <p>Across the county, people are finding out about projects next door from a news article rather than from anyone who owed them a phone call. That is a failure of process, and it is fixable.</p>
+          <p>North Dakota should be a good place to build a data center. It should not be a cheap place to walk away from one. Four things I'll push for in Bismarck:</p>
+          <ul>
+            <li>The power bill stays with the project, not the ratepayer.</li>
+            <li>Bond the cleanup before the first shovel goes in the ground.</li>
+            <li>Nobody in a community finds out about a new development from the news article announcing it.</li>
+            <li>Put the community's terms in writing, before the permit.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="policy-item">
+        <summary><span>Training Young People for the Jobs That Are Already Here</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>Employers in this valley cannot find skilled trades workers. Meanwhile, high school juniors in small districts an hour away have almost no career and technical education available to them, because a district of two hundred students can't staff a welding program on its own.</p>
+          <p>Those two problems are the same problem, and they fit together. I want a state pilot that lets rural and urban districts share career and technical programs, paired with paid apprenticeships at real employers — so a student gets hours of hands-on training, a wage, and a credential before graduation instead of a loan afterward.</p>
+          <p>Other states run programs like this and have the outcome data to show for it. North Dakota has the employers, the districts, and the need. We haven't built the bridge. I've done the legislative drafting work on this. It will be my first bill.</p>
+        </div>
+      </details>
+      <details class="policy-item">
+        <summary><span>Homes People Can Actually Afford</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>The problem in Fargo isn't that nobody's building. It's that almost nothing being built is priced for a first-time buyer, and the older housing that used to fill that role is either getting bought up or falling apart.</p>
+          <p>I'm working on this from a few directions at once. Making it viable to build genuinely modest starter homes again, rather than only the big-margin product. Getting condemned and deteriorating houses rehabilitated and back into the market instead of sitting empty for years while a neighborhood declines. And a path for rural homes that are standing empty in towns that need people.</p>
+          <p>None of this requires a new bureaucracy. Most of it is removing the reasons the market isn't already doing it.</p>
+        </div>
+      </details>
+      <details class="policy-item">
+        <summary><span>Coming Home From Work in One Piece</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>North Dakota is one of twenty-seven states with no state workplace safety plan. Enforcement here is entirely federal, from an agency covering an enormous territory with a small number of inspectors. For most North Dakota workplaces, the realistic odds of ever seeing an inspector are close to zero.</p>
+          <p>I work on an assembly line. I'm in the Machinists Union. I've seen what a serious injury does to a family, and I've seen how much of it was preventable with attention that nobody was required to pay.</p>
+          <p>I want North Dakota to run its own inspection program — targeted by actual injury risk rather than at random, so high-hazard workplaces are seen regularly and low-risk offices aren't harassed. Penalty money collected from violations should go back out as grants to help small employers fix hazards, rather than disappearing into the general fund. A safety program should end with fewer injuries, not more paperwork.</p>
+        </div>
+      </details>
+      <details class="policy-item">
+        <summary><span>The People Who Take Care of Our Kids</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>Child care in this state is short thousands of slots, and the binding constraint isn't buildings — it's staff. Child care workers are paid near the bottom of the wage scale and most have no employer health coverage at all. So they leave for jobs that offer it, rooms close for lack of a qualified adult, and parents who can't find care cut their hours or leave the workforce entirely.</p>
+          <p>That's an employer problem and an economic development problem, not just a family problem. I've drafted a program to bring health coverage within reach of child care workers, with the cost shared between the state, the employer, and the worker — so a center can keep good staff without raising tuition past what young families can pay.</p>
+        </div>
+      </details>
+      <details class="policy-item">
+        <summary><span>Health Care You Can Actually Get To</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>I have good health insurance because I work a union job. That isn't because I'm smarter or work harder than my neighbors. It's the luck of where I got hired, and it shouldn't come down to luck.</p>
+          <p>I'm not going to promise you I'll fix health care from a seat in the North Dakota House. Most of what drives your premium is decided in Washington. I'd rather say that up front than oversell what one legislator can do.</p>
+          <p>But access is a state problem, and it's ours to solve. North Dakota ranks 45th in the country for the share of women of childbearing age living in a maternity care desert — a county with no hospital obstetric care, no birth center, no midwife, no OB. When a hospital stops delivering babies, nobody's drive gets shorter.</p>
+          <p>And a study the Legislature itself commissioned last session found that North Dakota ambulance services lose close to $500 on the average transport. Roughly one call in six ends with treatment and no ride — which, under the way we pay for it, means no payment at all. We built a system that pays for mileage instead of care, and then we act surprised when rural services can't keep a crew together.</p>
+          <p>Those are fixable, and they're fixable here. Pay for care that's actually delivered, not just miles driven. Put rural obstetrics and emergency services on funding that doesn't rise and fall with transport counts. And treat an ambulance as the essential service it is, rather than something a town of four hundred is expected to figure out on its own.</p>
+        </div>
+      </details>
+      <details class="policy-item">
+        <summary><span>Groceries Within a Reasonable Drive</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>When the last grocery store in a small town closes, the town starts closing with it. Older residents who shouldn't be driving forty miles each way have to. Families do the math and move. The school gets smaller.</p>
+          <p>North Dakota already has a grant program aimed at this. It works, and it is far too small for the size of the problem. This is the rare case where we don't need to invent anything — we need to fund what's already built and let more communities use it.</p>
+        </div>
+      </details>
+      <details class="policy-item">
+        <summary><span>Paying for Fire Trucks, Ambulances, and Schools</span><span class="policy-chev"></span></summary>
+        <div class="policy-content">
+          <p>Nobody in North Dakota is going to argue against property tax relief, and I'm not going to either. But the 2025 relief package came with a three percent annual cap on what local governments can levy, and the cost of a fire truck, an ambulance, a plow, or a teacher is not rising at three percent.</p>
+          <p>So the squeeze lands on volunteer fire departments, rural ambulance services, and school districts — the services that show up when you call, run by people who can't defer the purchase forever.</p>
+          <p>The state took on the responsibility when it capped the levy. It should carry it. That means actually backfilling the gap for schools, standing behind emergency services with a real funding source, and stopping the diversion of revenue that was collected for fire protection and spent on something else. The money exists. It's a question of whether we admit the obligation.</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
